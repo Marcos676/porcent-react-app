@@ -1,10 +1,31 @@
 import "./App.css";
+import { useState } from "react";
 
 function App() {
+  const [originalPrice, setOriginalPrice] = useState("");
+  const [porcentDiscount, setPorcentDiscount] = useState("");
+  const [discount, setDiscount] = useState("");
+  const [finalPrice, setFinalPrice] = useState("");
+
+  const handleValues = (price, disc) => {
+    //Actualizacion de valores
+    setOriginalPrice(price);
+    setPorcentDiscount(disc);
+
+    //si algun input esta vacío no muestra ningun resultado
+    if (price === "" || disc === "") {//si un input esta vacío devuelve un string vacío
+      setDiscount("");
+      setFinalPrice("");
+    } else {      
+      setDiscount((price * disc) / 100);
+      setFinalPrice(price - ( (price * disc) / 100 ));
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <div>Burguer button icon</div>
+        <div><i class="fa-solid fa-bookmark"></i></div>
       </header>
       <main>
         <div className="title-description">
@@ -16,19 +37,22 @@ function App() {
             <input
               className="original-price"
               type="number"
-              placeholder="Precio original"
+              min={0}
+              placeholder="$ Precio"
+              onInput={(e) => handleValues(e.target.value, porcentDiscount)}
             />
             <input
               className="porcent-to-discount"
               type="number"
-              placeholder="Porcentaje de descuento"
+              min={0}
+              max={100}
+              placeholder="% Descuento"
+              onInput={(e) => handleValues(originalPrice, e.target.value)}
             />
             %
           </div>
-          <div className="result-box">
-            <p className="discount">200</p>
-            <p className="final-price">1050</p>
-          </div>
+          <p className="discount">Descuento: {discount}</p>
+          <p className="final-price">Precio final: {finalPrice}</p>
         </div>
       </main>
     </div>

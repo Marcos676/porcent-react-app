@@ -1,0 +1,57 @@
+.App {
+  background-color: #fff3b0;
+  height: 100vh;
+  width: 100vw;
+}
+
+.App-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16px 16px 0 16px;
+}
+
+.title-description{
+    padding: 16px;
+    text-align: center;
+}
+
+.functional-app {
+    font-size: 16px;
+    font-weight: bolder;
+    background-color: #FFFEFA;
+    border-radius: 25px;   
+    padding: 20px;
+}
+
+label {
+    display: block;
+}
+input, button {
+    height: 48px;
+    border: 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px #FFFEFA;
+    padding: 5px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.discount, .final-price {
+    padding-top: 10px;
+}
+
+.result-icons {
+    margin-right: 5px;
+}
+
+.number-discount {
+    text-decoration: line-through;
+}
+
+button {
+    margin-top: 16px;
+    background-color: #FFD365;
+    width: 100%;
+}

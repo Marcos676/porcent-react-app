@@ -12,7 +12,7 @@ function App() {
   const [saveList, setSaveList] = useState([]);
 
   // ------ Funciones útiles
-  
+
   //Obtiene ID
   const getId = () => {
     if (saveList.length === 0) {
@@ -21,8 +21,16 @@ function App() {
       return saveList[saveList.length - 1].id + 1;
     }
   };
+
   //Obtiene descuento
   const getDiscount = (precio, descuento) => (precio * descuento) / 100;
+
+//Resetea formularios segun query pasada como parametro
+  const handleReset = (classForm) => {
+    document.querySelectorAll(classForm).forEach( form => {
+      form.reset()
+    })
+  };
 
 
   // --------Manejadores
@@ -43,14 +51,18 @@ function App() {
     }
   };
 
-  //recibe el nombre, pone los datos en un objeto dentro de un array y cierra el modal
+  //recibe el nombre, pone los datos en un objeto dentro de un array, cierra el modal y limpia los campos
   const HandleSaveList = (name) => {
     setSaveList([
       ...saveList,
       { id: getId(), name, originalPrice, porcentDiscount },
     ]);
+    handleReset('.class-handle-save');
+    setOriginalPrice('');
+    setPorcentDiscount('');
+    setDiscount('');
+    setFinalPrice('');
     setShowSaveModal(false);
-    console.log(saveList);
   };
 
   return (
@@ -69,7 +81,7 @@ function App() {
         <div className="title-description">
           <h2>Calculá tu descuento al instante</h2>
         </div>
-        <form className="functional-app">
+        <form className="functional-app class-handle-save">
           <div className="inputs-box">
             <label htmlFor="original-price">Precio</label>
             <input

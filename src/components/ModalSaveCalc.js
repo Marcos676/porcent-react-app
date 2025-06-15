@@ -7,7 +7,7 @@ export const ModalSaveCalc = ({isVisible, isNotVisible, save}) => {
     if (isVisible) {
         return (
             <div className="modal-save-calc">
-            <form className="form-modal-save-calc" >
+            <form className="form-modal-save-calc class-handle-save" >
                 <label htmlFor="name">Nombre:</label>
             <input
               id="name"

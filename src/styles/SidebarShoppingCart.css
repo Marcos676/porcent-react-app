@@ -13,7 +13,6 @@
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
-  flex-grow: 0;
 }
 .sidebar-shopping-cart-header .header-row-container {
   display: flex;
@@ -36,8 +35,7 @@
 .sidebar-shopping-cart .cart-content {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  height: 83%;
+  height: 63%;
   flex-basis: content;
 }
 .sidebar-shopping-cart .items-list {

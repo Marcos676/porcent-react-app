@@ -69,6 +69,40 @@ export const SidebarShoppingCart = ({show, setShow}) => {
               </div>
             </div>
           </div>
+          <div className="item-container">
+            <div className="name-price-item">
+              <span><i className="fa-solid fa-caret-right"></i> Yerba mate</span>
+              <span>$960</span>
+            </div>
+            <div className="dropdawn-detail-item">
+              <div className="detail-item">
+                <span>Precio original: ${"1200"}</span>
+                <span>Descuento: {20}%</span>
+                <span>Ahorro: ${900}</span>
+              </div>
+              <div className="action-buttons-container">
+                <i className="fa-solid fa-pen"></i>
+                <i className="fa-solid fa-trash"></i>
+              </div>
+            </div>
+          </div>
+          <div className="item-container">
+            <div className="name-price-item">
+              <span><i className="fa-solid fa-caret-right"></i> Yerba mate</span>
+              <span>$960</span>
+            </div>
+            <div className="dropdawn-detail-item">
+              <div className="detail-item">
+                <span>Precio original: ${"1200"}</span>
+                <span>Descuento: {20}%</span>
+                <span>Ahorro: ${900}</span>
+              </div>
+              <div className="action-buttons-container">
+                <i className="fa-solid fa-pen"></i>
+                <i className="fa-solid fa-trash"></i>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="total-container">

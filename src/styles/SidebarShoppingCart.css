@@ -5,6 +5,8 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  transform: translateX(-100%);
+  transition: all 0.5s ease-in-out;
 }
 
 /* Header */
@@ -35,8 +37,10 @@
 .sidebar-shopping-cart .cart-content {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 63%;
   flex-basis: content;
+  flex-grow: 1;
 }
 .sidebar-shopping-cart .items-list {
   margin-bottom: 7px;
@@ -57,7 +61,10 @@
   display: flex;
   justify-content: space-between;
 }
-.sidebar-shopping-cart .dropdawn-detail-item {
+.sidebar-shopping-cart .dropdown-detail-item {
+  height: 0px;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
   display: flex;
   justify-content: space-between;
 }

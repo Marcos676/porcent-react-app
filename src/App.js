@@ -2,7 +2,9 @@ import "./styles/App.css";
 import { useState } from "react";
 
 import { ModalSaveItem } from "./components/ModalSaveItem";
-import { SidebarShoppingCart } from "./components/SidebarShoppingCart"
+import { SidebarShoppingCart } from "./components/SidebarShoppingCart";
+
+import { getDiscount, getFinalPrice } from "./utils/priceCalculation";
 
 function App() {
   const [originalPrice, setOriginalPrice] = useState("");
@@ -25,15 +27,14 @@ function App() {
   };
 
   //Obtiene descuento
-  const getDiscount = (precio, descuento) => (precio * descuento) / 100;
+  /*   const getDiscount = (precio, descuento) => (precio * descuento) / 100; */
 
-//Resetea formularios segun query pasada como parametro
+  //Resetea formularios segun query pasada como parametro
   const handleReset = (classForm) => {
-    document.querySelectorAll(classForm).forEach( form => {
-      form.reset()
-    })
+    document.querySelectorAll(classForm).forEach((form) => {
+      form.reset();
+    });
   };
-
 
   // --------Manejadores
 
@@ -49,7 +50,7 @@ function App() {
       setFinalPrice("");
     } else {
       setDiscount(getDiscount(price, disc));
-      setFinalPrice(price - getDiscount(price, disc));
+      setFinalPrice(getFinalPrice(price, disc));
     }
   };
 
@@ -59,12 +60,24 @@ function App() {
       ...saveList,
       { id: getId(), name, originalPrice, porcentDiscount },
     ]);
-    handleReset('.class-handle-save');
-    setOriginalPrice('');
-    setPorcentDiscount('');
-    setDiscount('');
-    setFinalPrice('');
+    handleReset(".class-handle-save");
+    setOriginalPrice("");
+    setPorcentDiscount("");
+    setDiscount("");
+    setFinalPrice("");
     setShowSaveModal(false);
+  };
+
+  const HandleSideBar = (show) => {
+    setShowSidebar(show ? true : false);
+
+    if (showSidebar) {
+      document.querySelector(".sidebar-shopping-cart").style.transform =
+        "translateX(-100%)";
+    } else {
+      document.querySelector(".sidebar-shopping-cart").style.transform =
+        "translateX(0%)";
+    }
   };
 
   return (
@@ -74,13 +87,13 @@ function App() {
         isNotVisible={setShowSaveModal}
         save={HandleSaveList}
       />
-      
-      <SidebarShoppingCart show={showSidebar} setShow={setShowSidebar} />
+
+      <SidebarShoppingCart setShow={HandleSideBar} />
 
       <header className="App-header">
-        <i 
-        className="fa-solid fa-cart-shopping"
-        onClick={() => setShowSidebar(true)}
+        <i
+          className="fa-solid fa-cart-shopping"
+          onClick={() => HandleSideBar(true)}
         ></i>
         <i className="fas fa-info-circle"></i>
       </header>

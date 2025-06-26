@@ -11,7 +11,6 @@ export const ModalSaveItem = ({isVisible, isNotVisible, save}) => {
                 <label htmlFor="name">Nombre:</label>
             <input
               id="name"
-              className=""
               type="text"
               placeholder="Ej: Galletita, arroz, banana..."
               onInput={(e) => setName(e.target.value)}

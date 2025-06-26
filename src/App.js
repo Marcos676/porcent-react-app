@@ -12,17 +12,17 @@ function App() {
   const [discount, setDiscount] = useState("");
   const [finalPrice, setFinalPrice] = useState("");
   const [showSaveModal, setShowSaveModal] = useState(false);
-  const [saveList, setSaveList] = useState([]);
+  const [cartList, setCartList] = useState([]);
   const [showSidebar, setShowSidebar] = useState(false);
 
   // ------ Funciones útiles
 
   //Obtiene ID
   const getId = () => {
-    if (saveList.length === 0) {
+    if (cartList.length === 0) {
       return 1;
     } else {
-      return saveList[saveList.length - 1].id + 1;
+      return cartList[cartList.length - 1].id + 1;
     }
   };
 
@@ -55,9 +55,9 @@ function App() {
   };
 
   //recibe el nombre, pone los datos en un objeto dentro de un array, limpia los campos y cierra el modal
-  const HandleSaveList = (name) => {
-    setSaveList([
-      ...saveList,
+  const HandleCartList = (name) => {
+    setCartList([
+      ...cartList,
       { id: getId(), name, originalPrice, porcentDiscount },
     ]);
     handleReset(".class-handle-save");
@@ -85,10 +85,10 @@ function App() {
       <ModalSaveItem
         isVisible={showSaveModal}
         isNotVisible={setShowSaveModal}
-        save={HandleSaveList}
+        save={HandleCartList}
       />
 
-      <SidebarShoppingCart setShow={HandleSideBar} />
+      <SidebarShoppingCart setShow={HandleSideBar} products={cartList} setCartList={setCartList} />
 
       <header className="App-header">
         <i

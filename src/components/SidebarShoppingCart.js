@@ -8,53 +8,25 @@ import {
   getTotalDiscount,
 } from "../utils/priceCalculation";
 
-export const SidebarShoppingCart = ({ setShow }) => {
+export const SidebarShoppingCart = ({ setShow, products, setCartList }) => {
   const [showDetail, setShowDetail] = useState(false);
-
-  let products = [
-    {
-      id: 1,
-      name: "Yerba mate",
-      originalPrice: 1000,
-      porcentDiscount: 25,
-    },
-    {
-      id: 2,
-      name: "Yerba mate con limon",
-      originalPrice: 1000,
-      porcentDiscount: 20,
-    },
-    {
-      id: 3,
-      name: "Yerba mate con limon",
-      originalPrice: 1000,
-      porcentDiscount: 20,
-    },
-    {
-      id: 4,
-      name: "Yerba mate con limon",
-      originalPrice: 1000,
-      porcentDiscount: 20,
-    },
-    {
-      id: 5,
-      name: "Yerba mate con limon",
-      originalPrice: 1000,
-      porcentDiscount: 20,
-    },
-  ];
 
   const handleDropdownDetail = (id) => {
     let detailBox = document.querySelector(
-      `.sidebar-shopping-cart .item-${id}`
+      `.sidebar-shopping-cart .item-${id} .dropdown-detail-item`
+    );
+    let triangleDropdown = document.querySelector(
+      `.sidebar-shopping-cart .item-${id} .fa-caret-right`
     );
 
-    if (!showDetail) {
-      setShowDetail(true);
-      detailBox.style.height = "71px";
-    } else {
+    if (showDetail) {
       setShowDetail(false);
       detailBox.style.height = "0px";
+      triangleDropdown.style.transform = "rotate(0deg)";
+    } else {
+      setShowDetail(true);
+      detailBox.style.height = "71px";
+      triangleDropdown.style.transform = "rotate(90deg)";
     }
   };
 
@@ -73,9 +45,12 @@ export const SidebarShoppingCart = ({ setShow }) => {
       </header>
       <div className="cart-content">
         <div className="items-list">
+          {products.length === 0 && (
+            <p className="empty-legend">Carrito vacío</p>
+          )}
           {products.map(({ id, name, originalPrice, porcentDiscount }) => {
             return (
-              <div className="item-container" key={id}>
+              <div className={`item-container item-${id}`} key={id}>
                 <div
                   className="name-price-item"
                   onClick={() => handleDropdownDetail(id)}
@@ -84,9 +59,9 @@ export const SidebarShoppingCart = ({ setShow }) => {
                     <i className="fa-solid fa-caret-right result-icons"></i>
                     {name}
                   </span>
-                  <span>${getFinalPrice(originalPrice, porcentDiscount)}</span>
+                  <span>$ {getFinalPrice(originalPrice, porcentDiscount)}</span>
                 </div>
-                <div className={`dropdown-detail-item item-${id}`}>
+                <div className={`dropdown-detail-item`}>
                   <div className="detail-item">
                     <span>{`Precio original: $ ${originalPrice}`} </span>
                     <span> {`Descuento: ${porcentDiscount}%`} </span>
@@ -111,14 +86,14 @@ export const SidebarShoppingCart = ({ setShow }) => {
           <div className="total-container">
             <p className="total-price">
               <i className="fa-solid fa-sack-dollar result-icons"></i>{" "}
-              {`Total con descuento: $ ${getTotalPrice(products)}`}
+              {`Total a pagar: $ ${getTotalPrice(products)}`}
             </p>
             <p className="">
               <i className="fa-solid fa-tag result-icons"></i>
               {`Total ahorrado: $ ${getTotalDiscount(products)}`}
             </p>
           </div>
-          <button className="clean-cart" type="button">
+          <button className="clean-cart" type="button" onClick={()=> setCartList([])}>
             <i className="fa-solid fa-cart-shopping"></i>
             <i className="fa-solid fa-arrow-left"></i>
             Vaciar

@@ -12,11 +12,11 @@ function App() {
   const [porcentDiscount, setPorcentDiscount] = useState("");
   const [discount, setDiscount] = useState("");
   const [finalPrice, setFinalPrice] = useState("");
-  // Estados de Modal
+  // Estado de Modal
   const [isOpenInModal, setIsOpenInModal] = useState("");
-  // Estados de Carrito
+  // Estado de productos guardados en Carrito
   const [cartList, setCartList] = useState([]);
-  // Estados de Sidebar
+  // Estado de Sidebar
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
 
   // ------ Funciones útiles
@@ -29,9 +29,6 @@ function App() {
       return cartList[cartList.length - 1].id + 1;
     }
   };
-
-  //Obtiene descuento
-  /*   const getDiscount = (precio, descuento) => (precio * descuento) / 100; */
 
   //Resetea formularios segun query pasada como parametro
   const handleReset = (classForm) => {

@@ -136,7 +136,7 @@ function App() {
               Precio final: ${finalPrice}
             </p>
           </div>
-          <button type="button" onClick={() => setIsOpenInModal("new-product-form")}>
+          <button type="button" onClick={() => setIsOpenInModal("NewProductForm")}>
             Guardar
           </button>
         </form>

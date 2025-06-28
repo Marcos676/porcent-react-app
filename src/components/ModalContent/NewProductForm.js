@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const SaveNewProductForm = ({ setIsOpenIn, saveNewProduct }) => {
+export const NewProductForm = ({ setIsOpenIn, saveNewProduct }) => {
     const [name, setName] = useState("");
     return (
         <div className="modal-background">

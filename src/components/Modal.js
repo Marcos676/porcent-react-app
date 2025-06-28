@@ -1,11 +1,11 @@
 import "../styles/Modal.css";
-import { SaveNewProductForm } from "./ModalContent/SaveNewProduct";
+import { NewProductForm } from "./ModalContent/NewProductForm";
 
 export const Modal = ({ isOpenIn, setIsOpenIn, saveNewProduct }) => {
   switch (isOpenIn) {
-    case "new-product-form":
+    case "NewProductForm":
       return (
-      <SaveNewProductForm setIsOpenIn={setIsOpenIn} saveNewProduct={saveNewProduct} />
+      <NewProductForm setIsOpenIn={setIsOpenIn} saveNewProduct={saveNewProduct} />
     );  
     //case "":
     default:

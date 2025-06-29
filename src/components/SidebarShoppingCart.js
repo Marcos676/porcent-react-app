@@ -1,6 +1,6 @@
 import "../styles/SidebarShoppingCart.css";
 import { useState } from "react";
- 
+
 import {
   getDiscount,
   getFinalPrice,
@@ -8,8 +8,13 @@ import {
   getTotalDiscount,
 } from "../utils/priceCalculation";
 
-export const SidebarShoppingCart = ({ isOpen, products, setCartList, deleteProductCartlist, handleModalContent }) => {
-  const [isOpenDetail, setIsOpenDetail] = useState(false);
+export const SidebarShoppingCart = ({
+  isOpen,
+  products,
+  setCartList,
+  deleteProductCartlist,
+  handleModalContent,
+}) => {
 
   const handleDropdownDetail = (id) => {
     let detailBox = document.querySelector(
@@ -19,12 +24,12 @@ export const SidebarShoppingCart = ({ isOpen, products, setCartList, deleteProdu
       `.sidebar-shopping-cart .item-${id} .fa-caret-right`
     );
 
-    if (isOpenDetail) {
-      setIsOpenDetail(false);
+    if (detailBox.classList.contains("dropdown-detail-active")) {
+      detailBox.classList.remove("dropdown-detail-active");
       detailBox.style.height = "0px";
       triangleDropdown.style.transform = "rotate(0deg)";
     } else {
-      setIsOpenDetail(true);
+      detailBox.classList.add("dropdown-detail-active");
       detailBox.style.height = "71px";
       triangleDropdown.style.transform = "rotate(90deg)";
     }
@@ -74,7 +79,17 @@ export const SidebarShoppingCart = ({ isOpen, products, setCartList, deleteProdu
                   </div>
                   <div className="action-buttons-container">
                     <i className="fa-solid fa-pen"></i>
-                    <i className="fa-solid fa-trash" onClick={() => handleModalContent("Confirm", deleteProductCartlist, id, `Esta seguro de que quiere borrar el producto: ${name}?`)}></i>
+                    <i
+                      className="fa-solid fa-trash"
+                      onClick={() =>
+                        handleModalContent(
+                          "Confirm",
+                          deleteProductCartlist,
+                          id,
+                          `Esta seguro de que quiere borrar el producto: ${name}?`
+                        )
+                      }
+                    ></i>
                   </div>
                 </div>
               </div>
@@ -92,7 +107,18 @@ export const SidebarShoppingCart = ({ isOpen, products, setCartList, deleteProdu
               {`Total ahorrado: $ ${getTotalDiscount(products)}`}
             </p>
           </div>
-          <button className="clean-cart" type="button" onClick={()=> handleModalContent("Confirm", setCartList, [], "Esta seguro de que quiere borrar el contenido del carrito?")}>
+          <button
+            className="clean-cart"
+            type="button"
+            onClick={() =>
+              handleModalContent(
+                "Confirm",
+                setCartList,
+                [],
+                "Esta seguro de que quiere borrar el contenido del carrito?"
+              )
+            }
+          >
             <i className="fa-solid fa-cart-shopping"></i>
             <i className="fa-solid fa-arrow-left"></i>
             Vaciar

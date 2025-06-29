@@ -53,7 +53,7 @@ export const SidebarShoppingCart = ({
           {products.length === 0 && (
             <p className="empty-legend">Carrito vacío</p>
           )}
-          {products.map(({ id, name, originalPrice, porcentDiscount }) => {
+          {products.map(({ id, name, originalPrice, porcentDiscount, quantity }) => {
             return (
               <div className={`item-container item-${id}`} key={id}>
                 <div
@@ -62,9 +62,9 @@ export const SidebarShoppingCart = ({
                 >
                   <span>
                     <i className="fa-solid fa-caret-right result-icons"></i>
-                    {name}
+                    {` ${quantity} ${name}`}
                   </span>
-                  <span>$ {getFinalPrice(originalPrice, porcentDiscount)}</span>
+                  <span>$ {getFinalPrice(originalPrice, porcentDiscount, quantity)}</span>
                 </div>
                 <div className={`dropdown-detail-item`}>
                   <div className="detail-item">
@@ -73,7 +73,7 @@ export const SidebarShoppingCart = ({
                     <span>
                       {`Ahorro: $ ${getDiscount(
                         originalPrice,
-                        porcentDiscount
+                        porcentDiscount, quantity
                       )}`}
                     </span>
                   </div>

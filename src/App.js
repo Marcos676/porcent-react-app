@@ -12,6 +12,7 @@ function App() {
   const [porcentDiscount, setPorcentDiscount] = useState("");
   const [discount, setDiscount] = useState("");
   const [finalPrice, setFinalPrice] = useState("");
+  const [quantity, setQuantity] = useState(1);
   // Estado de Modal
   const [modalIsOpenIn, setModalIsOpenIn] = useState("");
   const [modalProps, setModalProps] = useState({});
@@ -40,19 +41,21 @@ function App() {
 
   // --------Manejadores
 
-  const handleValues = (price, disc) => {
+  const handleValues = (price, disc, quant) => {
     //Actualizacion de valores
+    quant = quant === "" ? 1 : quant
     setOriginalPrice(price);
     setPorcentDiscount(disc);
+    setQuantity(quant)
 
     //si algun input esta vacío no muestra ningun resultado
-    if (price === "" || disc === "") {
+    if (price === "") {
       //si un input esta vacío devuelve un string vacío
       setDiscount("");
       setFinalPrice("");
     } else {
-      setDiscount(getDiscount(price, disc));
-      setFinalPrice(getFinalPrice(price, disc));
+      setDiscount(getDiscount(price, disc, quant));
+      setFinalPrice(getFinalPrice(price, disc, quant));
     }
   };
 
@@ -60,22 +63,23 @@ function App() {
   const addProductCartList = (name) => {
     setCartList([
       ...cartList,
-      { id: getId(), name, originalPrice, porcentDiscount },
+      { id: getId(), name, originalPrice, porcentDiscount, quantity },
     ]);
     handleReset(".reset-form-class");
     setOriginalPrice("");
     setPorcentDiscount("");
     setDiscount("");
     setFinalPrice("");
-    setModalIsOpenIn("");
+    setQuantity(1);
+    setModalIsOpenIn("");    
   };
 
   const deleteProductCartlist = (id) => {
-    let updatedList = cartList.filter( product => {
-      return product.id !== id
-    })
-    setCartList(updatedList)
-  }
+    let updatedList = cartList.filter((product) => {
+      return product.id !== id;
+    });
+    setCartList(updatedList);
+  };
 
   const HandleSideBar = (show) => {
     setIsOpenSidebar(show ? true : false);
@@ -105,7 +109,7 @@ function App() {
     setModalProps({
       methodAction: action,
       arrayParams: [paramsAction],
-      textContent
+      textContent,
     });
     setModalIsOpenIn(modalContent);
   };
@@ -145,7 +149,7 @@ function App() {
               type="number"
               min={0}
               placeholder="$"
-              onInput={(e) => handleValues(e.target.value, porcentDiscount)}
+              onInput={(e) => handleValues(parseFloat(e.target.value), porcentDiscount, quantity)}
             />
           </div>
           <div className="inputs-box">
@@ -157,7 +161,18 @@ function App() {
               min={0}
               max={100}
               placeholder="%"
-              onInput={(e) => handleValues(originalPrice, e.target.value)}
+              onInput={(e) => handleValues(originalPrice, parseFloat(e.target.value), quantity)}
+            />
+          </div>
+          <div className="inputs-box">
+            <label htmlFor="quantity">Cantidad</label>
+            <input
+              id="quantity"
+              className="original-price"
+              type="number"
+              min={1}
+              placeholder="Unidades"
+              onInput={(e) => handleValues(originalPrice, porcentDiscount, parseFloat(e.target.value))}
             />
           </div>
           <div>

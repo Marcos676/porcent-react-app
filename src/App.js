@@ -1,4 +1,5 @@
 import "./styles/App.css";
+import { useCookies } from "react-cookie";
 import { useState, useEffect } from "react";
 
 import { Modal } from "./components/Modal";
@@ -14,17 +15,32 @@ function App() {
   const [discount, setDiscount] = useState("");
   const [finalPrice, setFinalPrice] = useState("");
 
-  // Estado de Modal
-  const [modalIsOpenIn, setModalIsOpenIn] = useState("");
-  const [modalProps, setModalProps] = useState({});
   // Estado de productos guardados en Carrito
   const [cartList, setCartList] = useState([]);
   const [quantityProducts, setQuantityProducts] = useState(0);
+
+  // Estado de Modal
+  const [modalIsOpenIn, setModalIsOpenIn] = useState("");
+  const [modalProps, setModalProps] = useState({});
+
   // Estado de Sidebar
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
 
-  // ------ Funciones útiles
+  // Seteo de cookie
+  const [cookies, setCookie, removeCookie] = useCookies(["userCookies"]);
+  const [isMounted, setIsMounted] = useState(false);
 
+  // Se ejecuta solo durante el primer montaje y si existe una cookie
+  if (
+    !isMounted &&
+    typeof cookies["userCookies"] !== "undefined"
+  ) {
+    setCartList(cookies["userCookies"].cartList);
+  }
+  !isMounted && setIsMounted(true);
+
+
+  // ------ Funciones útiles
   //Obtiene ID
   const getId = () => {
     if (cartList.length === 0) {
@@ -42,7 +58,6 @@ function App() {
   };
 
   // --------Manejadores
-
   // Actualiza cantidad de productos en el carrito
   useEffect(() => {
     if (cartList.length !== 0) {
@@ -58,7 +73,7 @@ function App() {
 
   //recibe el nombre, pone los datos en un objeto dentro de un array, resetea los campos y cierra el modal
   const addProductCartList = (name) => {
-    setCartList([
+    const updatedList = [
       ...cartList,
       {
         id: getId(),
@@ -67,7 +82,9 @@ function App() {
         porcentDiscount: porcentDiscount === "" ? 0 : porcentDiscount,
         quantity: quantity === "" ? 1 : quantity,
       },
-    ]);
+    ];
+    setCartList(updatedList);
+    setCookie("userCookies", { cartList: updatedList }, { path: "/" });
 
     handleResetForm(".reset-form-class");
     setOriginalPrice("");
@@ -79,21 +96,30 @@ function App() {
   };
 
   const editProductCartList = (updatedData) => {
-    updatedData.porcentDiscount = updatedData.porcentDiscount === "" ? 0 : updatedData.porcentDiscount;
-    updatedData.quantity = updatedData.quantity === "" ? 1 : updatedData.quantity
+    updatedData.porcentDiscount =
+      updatedData.porcentDiscount === "" ? 0 : updatedData.porcentDiscount;
+    updatedData.quantity =
+      updatedData.quantity === "" ? 1 : updatedData.quantity;
 
-    let updatedList = cartList.map((product) =>
+    const updatedList = cartList.map((product) =>
       product.id === updatedData.id ? updatedData : product
     );
     setCartList(updatedList);
+    setCookie("userCookies", { cartList: updatedList }, { path: "/" });
     setModalIsOpenIn("");
   };
 
   const deleteProductCartlist = (id) => {
-    let updatedList = cartList.filter((product) => {
+    const updatedList = cartList.filter((product) => {
       return product.id !== id;
     });
     setCartList(updatedList);
+    updatedList.length === 0 ? removeCookie("userCookies") : setCookie("userCookies", { cartList: updatedList }, { path: "/" });
+  };
+
+  const cleanCartList = (cleanedArray) => {
+    setCartList(cleanedArray);
+    removeCookie("userCookies");
   };
 
   const HandleSideBar = (show) => {
@@ -112,9 +138,10 @@ function App() {
    handleModalContent Recibe como parametros:
    modalContent = string que definira el contenido del modal, se puede apreciar los valores esperados en el Switch del archivo Modal.js
    action = metodo que podra utilizarse como en un evento onClick
-   paramsAction = parametro para el action si hace falta, debe recibir un array
+   paramsAction = parametro para el action si hace falta, debe recibir un array en el cual, dentro se deben poner los parametros a utilizar
    textContent = Texto dinamico, actualmente utilizado en contenido de modal de Confirm
    otherRequires = debe recibir un objeto literal con lo que se desea incluir
+   Nota: si no necesitas por ejemplo paramsAction puedes mandar un "" para luego poner textContent, si se requiere
   */
   const handleModalContent = (
     modalContent,
@@ -137,7 +164,7 @@ function App() {
       <SidebarShoppingCart
         isOpen={HandleSideBar}
         products={cartList}
-        setCartList={setCartList}
+        cleanCartList={cleanCartList}
         deleteProductCartlist={deleteProductCartlist}
         editProductCartList={editProductCartList}
         handleModalContent={handleModalContent}

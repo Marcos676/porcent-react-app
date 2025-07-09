@@ -10,7 +10,7 @@ import {
 export const SidebarShoppingCart = ({
   isOpen,
   products,
-  setCartList,
+  cleanCartList,
   deleteProductCartlist,
   editProductCartList,
   handleModalContent,
@@ -126,8 +126,8 @@ export const SidebarShoppingCart = ({
             onClick={() =>
               handleModalContent(
                 "Confirm",
-                setCartList,
-                [],
+                cleanCartList,
+                [[]],
                 "Esta seguro de que quiere borrar el contenido del carrito?"
               )
             }

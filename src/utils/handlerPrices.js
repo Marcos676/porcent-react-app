@@ -1,30 +1,30 @@
 const getDiscount = (price, discount, quantity) =>
-  parseFloat(((price * discount) / 100).toFixed(2)) * quantity;
+  parseFloat((((price * discount) / 100) * quantity).toFixed(2));
 
 const getFinalPrice = (price, discount, quantity) =>
-  parseFloat((price - (price * discount) / 100).toFixed(2)) * quantity;
+  parseFloat(((price - (price * discount) / 100) * quantity).toFixed(2));
 
 const getTotalPrice = (products) =>
   products.reduce(
-    (acc, currVal) =>
-      acc +
+    (acc, product) =>
+      parseFloat((acc +
       getFinalPrice(
-        currVal.originalPrice,
-        currVal.porcentDiscount,
-        currVal.quantity
-      ),
+        product.originalPrice,
+        product.porcentDiscount,
+        product.quantity
+      )).toFixed(2)),
     0
   );
 
 const getTotalDiscount = (products) =>
   products.reduce(
-    (acc, currVal) =>
-      acc +
+    (acc, product) =>
+      parseFloat((acc +
       getDiscount(
-        currVal.originalPrice,
-        currVal.porcentDiscount,
-        currVal.quantity
-      ),
+        product.originalPrice,
+        product.porcentDiscount,
+        product.quantity
+      )).toFixed(2)),
     0
   );
 

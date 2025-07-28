@@ -175,7 +175,7 @@ function App() {
         setIsOpenIn={setModalIsOpenIn}
         contentProps={modalProps}
       />
-
+      
       <header className="App-header">
         <div
           className="cart-sidebar-button"
@@ -269,7 +269,7 @@ function App() {
           <div>
             <p className="discount">
               <i className="fas fa-arrow-right result-icons"></i>
-              Ahorro: $<span className="number-discount">{formatToCurrency(discount)}</span>
+              Ahorro: <span className="number-discount">{formatToCurrency(discount)}</span>
             </p>
             <p className="final-price">
               <i className="fa-solid fa-sack-dollar result-icons"></i>

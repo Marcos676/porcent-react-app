@@ -186,7 +186,7 @@ function App() {
         contentProps={modalProps}
       />
       {/* Toast */}
-      <div className="toast"><i class="fa-solid fa-circle-check"></i> Agregado al <i className="fa-solid fa-cart-shopping"></i></div>
+      <div className="toast"></div>
       {/* -------- */}
       <header className="App-header">
         <div

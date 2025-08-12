@@ -46,14 +46,31 @@ function App() {
     }
   };
 
-  // Mostrar Toast (mensaje de agregado de producto exitoso)
+  // Mostrar Toast (mensaje de agregado y editado de producto exitoso)
   function showToast(message) {
     const toast = document.querySelector(".toast");
+
     toast.innerHTML = message;
     toast.classList.add("show");
+
     setTimeout(() => {
       toast.classList.remove("show");
     }, 3000);
+  }
+
+  //Activa overlay para el mensaje de vaciado de carrito exitoso
+  function showOverlay(success, message) {
+    const overlay = document.getElementById("overlayFeedback");
+    const iconEl = document.getElementById("overlayIcon");
+    const textEl = document.getElementById("overlayText");
+
+    iconEl.textContent = success ? "✓" : "✕";
+    textEl.textContent = message;
+    overlay.classList.add("show");
+
+    setTimeout(() => {
+      overlay.classList.remove("show");
+    }, 2000);
   }
 
   //Resetea formularios segun query pasada como parametro
@@ -115,9 +132,7 @@ function App() {
     );
     setCartList(updatedList);
     setCookie("userCookies", { cartList: updatedList }, { path: "/" });
-    showToast(
-      `<i class="fa-solid fa-circle-check"></i> Producto editado</i>`
-    );
+    showToast(`<i class="fa-solid fa-circle-check"></i> Producto editado</i>`);
 
     setModalIsOpenIn("");
   };
@@ -135,6 +150,7 @@ function App() {
   const cleanCartList = (cleanedArray) => {
     setCartList(cleanedArray);
     removeCookie("userCookies");
+    showOverlay(true, "Carrito vaciado!")
   };
 
   const HandleSideBar = (show) => {
@@ -192,6 +208,15 @@ function App() {
       />
       {/* Toast */}
       <div className="toast"></div>
+      {/* -------- */}
+      {/* Overlay */}
+      <div id="overlayFeedback" className="overlay-feedback">
+        <div className="icon" id="overlayIcon">
+        </div>
+        <div className="text" id="overlayText">
+        </div>
+      </div>
+
       {/* -------- */}
       <header className="App-header">
         <div

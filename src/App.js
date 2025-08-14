@@ -260,14 +260,14 @@ function App() {
             />
           </div>
           <div>
-            <label htmlFor="porcent-to-discount">Descuento</label>
+            <label htmlFor="porcent-to-discount">Descuento %</label>
             <input
               id="porcent-to-discount"
               className="porcent-to-discount"
               type="number"
               min={0}
               max={100}
-              placeholder="%"
+              placeholder="0"
               onInput={(e) =>
                 handleValues(
                   originalPrice,
@@ -291,8 +291,7 @@ function App() {
               className="original-price"
               type="number"
               min={1}
-              value={quantity}
-              placeholder="Unidades"
+              placeholder="1"
               onInput={(e) =>
                 handleValues(
                   originalPrice,

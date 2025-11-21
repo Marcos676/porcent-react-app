@@ -64,12 +64,12 @@ function App() {
   }
 
   //Activa overlay para el mensaje de vaciado de carrito exitoso
-  function showOverlay(success, message) {
+  function showOverlay(simbol, message) {
     const overlay = document.getElementById("overlayFeedback");
     const iconEl = document.getElementById("overlayIcon");
     const textEl = document.getElementById("overlayText");
 
-    iconEl.textContent = success ? "✓" : "✕";
+    iconEl.textContent = simbol;
     textEl.textContent = message;
     overlay.classList.add("show");
 
@@ -156,7 +156,7 @@ function App() {
   const cleanCartList = (cleanedArray) => {
     setCartList(cleanedArray);
     removeCookie("userCookies");
-    showOverlay(true, "Carrito vaciado!");
+    showOverlay("✓", "Carrito vaciado!");
   };
 
   // ----- Maneja la apertura y cierre del carrito -----
@@ -208,6 +208,7 @@ function App() {
         editProductCartList={editProductCartList}
         handleModalContent={handleModalContent}
         quantityProducts={quantityProducts}
+        showOverlay={showOverlay}
       />
       <Modal
         isOpenIn={modalIsOpenIn}

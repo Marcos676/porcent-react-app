@@ -11,7 +11,7 @@ Aplicación web fullstack para gestionar y calcular costos de compras en tiempo 
 **[🔗 Acceder a la aplicación aquí](https://shopping-calculator-production.up.railway.app/)**
 
 Prueba las siguientes credenciales:
-- **Email:** `demo@test.com`
+- **Usuario:** `Prueba`
 - **Contraseña:** `Demo1234`
 
 O crea tu propia cuenta para explorar todas las funcionalidades.
